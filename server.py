@@ -11,11 +11,13 @@ app = Flask("Emotion Detection App")
 def sentiment_detector():
     # Récupère le texte
     query = request.args.get("textToAnalyze", "").strip()
-    if not query:
-        return "Missing 'textToAnalyze' parameter", 400
 
     # Appel de ta fonction métier
     response = emotion_detector(query)
+
+    # Si la fonction a renvoyé le default_output
+    if response['anger'] == None:
+        return "Invalid input! Please try again."
 
     # Sécurise l'accès aux clés
     anger = response['anger']
