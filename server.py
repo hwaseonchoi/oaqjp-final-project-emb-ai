@@ -9,6 +9,11 @@ app = Flask("Emotion Detection App")
 
 @app.route("/emotionDetector")
 def sentiment_detector():
+    ''' This code receives the text from the HTML interface and 
+        runs sentiment analysis over it using emotion_detector()
+        function. The output returned shows all emotions and the dominant emotion.
+    '''
+
     # Récupère le texte
     query = request.args.get("textToAnalyze", "").strip()
 
@@ -16,7 +21,7 @@ def sentiment_detector():
     response = emotion_detector(query)
 
     # Si la fonction a renvoyé le default_output
-    if response['anger'] == None:
+    if response['anger'] is None:
         return "Invalid input! Please try again."
 
     # Sécurise l'accès aux clés
